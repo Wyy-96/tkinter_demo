@@ -1,6 +1,5 @@
 from tkinter.messagebox import *
 from MainPage import *
-from RegisterPage import *
 # import pymysql
 
 class LoginPage(object):
@@ -11,7 +10,7 @@ class LoginPage(object):
         self.initSize()
 
     def initSize(self):
-        # 设置窗口大小
+        # 初次设置窗口大小
         self.width = 1100
         self.height = 700
         # 保持居中
@@ -28,21 +27,40 @@ class LoginPage(object):
         self.root.mainloop()
 
     def createPage(self):
-        self.imgBG .destroy()
-        
-        self.page = Frame(self.root,background="")  # 创建Frame
-        self.page.place(x=self.width/2-100, y=self.height/2-100)
-        ttk.Label(self.page,text="登录").grid(row=0, stick=W)
-        ttk.Label(self.page, text='账户：').grid(row=1, stick=W, pady=10)
+        self.imgBG.destroy()
+
+        self.root.after(10)
+        self.createLoginPage()
+        self.createRegisterPage()
+
+    
+
+    def createLoginPage(self):
+        self.loginPage = Frame(self.root,background="")  # 创建Frame
+        self.loginPage.place(x=self.width/2-100, y=self.height/2-100)
+        ttk.Label(self.loginPage,text="登录").grid(row=0, stick=W)
+        ttk.Label(self.loginPage, text='账户：').grid(row=1, stick=W, pady=10)
 
         # Entry
-        ttk.Entry(self.page, textvariable=self.username).grid(row=1, column=1, stick=E)
-        ttk.Label(self.page, text='密码：').grid(row=2, stick=W, pady=10)
-        ttk.Entry(self.page, textvariable=self.password, show='*').grid(row=2, column=1, stick=E)
-        ttk.Button(self.page, text='登录', command=self.loginCheck).grid(row=3, stick=W, pady=10)
-        ttk.Button(self.page, text='注册', command=self.register).grid(row=3, column=2,stick=W, pady=10)
-        ttk.Button(self.page, text='退出', command=self.page.quit).grid(row=3, column=3, stick=E)
-        
+        ttk.Entry(self.loginPage, textvariable=self.username).grid(row=1, column=1, stick=E)
+        ttk.Label(self.loginPage, text='密码：').grid(row=2, stick=W, pady=10)
+        ttk.Entry(self.loginPage, textvariable=self.password, show='*').grid(row=2, column=1, stick=E)
+        ttk.Button(self.loginPage, text='登录', command=self.loginCheck).grid(row=3, stick=W, pady=10)
+        ttk.Button(self.loginPage, text='注册', command=self.register).grid(row=3, column=2,stick=W, pady=10)
+        ttk.Button(self.loginPage, text='退出', command=self.loginPage.quit).grid(row=3, column=3, stick=E)
+
+    def createRegisterPage(self):
+      self.registerPage = Frame(self.root)  # 创建Frame
+
+      ttk.Label(self.registerPage,text="注册").grid(row=0, stick=W)
+      ttk.Label(self.registerPage, text='账户：').grid(row=1, stick=W, pady=10)
+      
+      ttk.Entry(self.registerPage, textvariable=self.username).grid(row=1, column=1, stick=E)
+      ttk.Label(self.registerPage, text='密码：').grid(row=2, stick=W, pady=10)
+      ttk.Entry(self.registerPage, textvariable=self.password, show='*').grid(row=2, column=1, stick=E)
+      ttk.Button(self.registerPage, text='登录', command=self.login).grid(row=3, stick=W, pady=10)
+      ttk.Button(self.registerPage, text='注册', command=self.registerCheck).grid(row=3, column=2,stick=W, pady=10)
+      ttk.Button(self.registerPage, text='退出', command=self.registerPage.quit).grid(row=3, column=3, stick=E)  
 
     def loginCheck(self):
         entry_uname = self.username.get()
@@ -73,14 +91,26 @@ class LoginPage(object):
         #     print('登录异常')
         self.success_tip(entry_uname)
 
+    def login(self):
+        # 切换frame
+        self.registerPage.place_forget()
+        self.loginPage.place(x=self.width/2-100, y=self.height/2-100)
+
     def register(self):
-        #注册
-        self.page.destroy()
-        RegisterPage(self.root)
+        # 切换frame
+        self.loginPage.place_forget()
+        self.registerPage.place(x=self.width/2-100, y=self.height/2-100)
+
+    def registerCheck(self):
+        showinfo(title='消息提示框', message='注册成功')
+        self.registerPage.place_forget()
+        self.loginPage.place(x=self.width/2-100, y=self.height/2-100)
+        
 
     def success_tip(self, username):
         showinfo(title='消息提示框', message=username + '登录成功')
-        self.page.destroy()
+        self.loginPage.destroy()
+        self.registerPage.destroy()
         MainPage(self.root)
         # self.root.mainloop()
 

@@ -1,5 +1,6 @@
 from view import *
 from Watermelon import *
+from LoginPage import *
 
 
 class MainPage(object):
@@ -52,7 +53,7 @@ class MainPage(object):
 
     def window1_Disp(self):
         self.selectPage.pack_forget()
-        self.window1Page.pack()
+        self.window1Page.pack_forget()
         self.window2Page.pack_forget()
         self.aboutPage.pack_forget()
 
