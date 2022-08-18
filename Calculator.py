@@ -3,7 +3,6 @@
 from tkinter import *
 from functools import partial
 from tkinter import ttk
-from tkinter import font
 
 class Calculator(Frame):
     def __init__(self, master):
@@ -20,7 +19,7 @@ class Calculator(Frame):
 
     def createPage(self):
         self.label = ttk.Label(
-            self, anchor="e", font=("-size", 20),padding=80
+            self, anchor="e", font=("-size", 20),padding=60
         ).grid(row=0, column=0, columnspan=4, sticky="ew")
         self.label = ttk.Label(
             self, anchor="e", textvariable=self.result, font=("-size", 30),width=150
