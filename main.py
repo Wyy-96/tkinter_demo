@@ -4,7 +4,7 @@ import sv_ttk
 
 def Mframe():
     root = Tk()
-    root.title('Python程序设计与实现')
+    root.title('Python程序设计')
     sv_ttk.set_theme("light")
     LoginPage(root)
     root.mainloop()
