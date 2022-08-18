@@ -1,4 +1,5 @@
 from LoginPage import *
+from MainPage import *
 import sv_ttk
 
 def Mframe():
