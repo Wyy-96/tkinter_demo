@@ -1,7 +1,7 @@
 from view import *
 from Watermelon import *
 from LoginPage import *
-
+from Calculator import *
 
 class MainPage(object):
     def __init__(self, master):
@@ -12,7 +12,7 @@ class MainPage(object):
     def createPage(self):
         # 创建不同的界面frame
         # self.calculatorPage
-        # self.selectPage = selectPage(self.root)  # 子系统选择界面
+        self.calculator = Calculator(self.root).pack()  # 子系统选择界面
         # self.window1Page = window1_Frame(self.root)  # 窗口1界面
         # self.window2Page = window2_Frame(self.root)  # 窗口2界面
         # self.aboutPage = AboutFrame(self.root)  # 关于信息界面
@@ -50,28 +50,22 @@ class MainPage(object):
         menubar = Menu(self.root)
         # 一级菜单 竖向
         graphMenu = Menu(menubar, tearoff=0)
-        menubar.add_cascade(label='交互图形', menu=graphMenu)
+        menubar.add_cascade(label='小游戏', menu=graphMenu)
         # 在graphMenu菜单项添加命令选项
-        graphMenu.add_command(label='计算器', )   # 点击调用do_job command=self.Calculator
-        graphMenu.add_command(label='小人走路？') #https://zhuanlan.zhihu.com/p/140363413
+        graphMenu.add_command(label='', )   # 点击调用do_job command=self.Calculator
+        graphMenu.add_command(label='') #https://zhuanlan.zhihu.com/p/140363413、https://www.yisu.com/zixun/690619.html
         
         sqlMenu = Menu(menubar, tearoff=0)
-        menubar.add_cascade(label='数据库', menu=sqlMenu)
+        menubar.add_cascade(label='小工具', menu=sqlMenu)
         # 在graphMenu菜单项添加命令选项
-        sqlMenu.add_command(label='操作——1')   # 点击调用do_job
-        sqlMenu.add_command(label='操作——2')
+        sqlMenu.add_command(label='计算器')   # 点击调用do_job
+        sqlMenu.add_command(label='图片缩放')  # https://github.com/cnatom/ImageScalerPlus/blob/master/main.py
         
         daMenu = Menu(menubar, tearoff=0)
-        menubar.add_cascade(label='数据分析', menu=daMenu)
+        menubar.add_cascade(label='数据库', menu=daMenu)
         # 在graphMenu菜单项添加命令选项
-        daMenu.add_command(label='聚类')   # 点击调用do_job
-        daMenu.add_command(label='分类')
-
-        aboutMenu = Menu(menubar, tearoff=0)
-        menubar.add_cascade(label='关于', menu=aboutMenu)
-        # 在graphMenu菜单项添加命令选项
-        aboutMenu.add_command(label='操作——1')   # 点击调用do_job
-        aboutMenu.add_command(label='操作——2')
+        daMenu.add_command(label='操作1')   # 点击调用do_job
+        daMenu.add_command(label='操作2')
 
 
         self.root.config(menu=menubar)
