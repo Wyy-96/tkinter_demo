@@ -1,6 +1,5 @@
 from LoginPage import *
 import sv_ttk
-from RegisterPage import *
 
 def Mframe():
     root = Tk()

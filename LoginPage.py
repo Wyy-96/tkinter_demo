@@ -8,6 +8,7 @@ class LoginPage(object):
         self.username = StringVar()
         self.password = StringVar()
         self.initSize()
+        self.createPage()
 
     def initSize(self):
         # 初次设置窗口大小
@@ -18,25 +19,15 @@ class LoginPage(object):
         y = int((self.root.winfo_screenheight() / 2) - (self.height / 2))
         self.root.minsize(self.width, self.height)
         self.root.geometry(f"+{x}+{y}")
-        # 创建图片Frame
-        self.imgBG = Frame(self.root)  
-        self.imgBG.pack()
-        img = PhotoImage(file='bg.png',width=self.width,height=self.height)
-        entryButton = Button(self.imgBG,image=img,text="欢迎！\n点击进入系统",font=('Microsoft YaHei', 20),compound=CENTER,command=self.createPage).pack()
-        
-        self.root.mainloop()
 
     def createPage(self):
-        self.imgBG.destroy()
-
         self.root.after(10)
         self.createLoginPage()
         self.createRegisterPage()
 
-    
-
     def createLoginPage(self):
-        self.loginPage = Frame(self.root,background="")  # 创建Frame
+        # 创建登录的Frame
+        self.loginPage = Frame(self.root,background="")  
         self.loginPage.place(x=self.width/2-100, y=self.height/2-100)
         ttk.Label(self.loginPage,text="登录").grid(row=0, stick=W)
         ttk.Label(self.loginPage, text='账户：').grid(row=1, stick=W, pady=10)
@@ -50,7 +41,8 @@ class LoginPage(object):
         ttk.Button(self.loginPage, text='退出', command=self.loginPage.quit).grid(row=3, column=3, stick=E)
 
     def createRegisterPage(self):
-      self.registerPage = Frame(self.root)  # 创建Frame
+    # 创建注册的Frame
+      self.registerPage = Frame(self.root) 
 
       ttk.Label(self.registerPage,text="注册").grid(row=0, stick=W)
       ttk.Label(self.registerPage, text='账户：').grid(row=1, stick=W, pady=10)

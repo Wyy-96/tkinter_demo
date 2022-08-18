@@ -11,39 +11,73 @@ class MainPage(object):
 
     def createPage(self):
         # 创建不同的界面frame
-        self.selectPage = selectPage(self.root)  # 子系统选择界面
-        self.window1Page = window1_Frame(self.root)  # 窗口1界面
-        self.window2Page = window2_Frame(self.root)  # 窗口2界面
-        self.aboutPage = AboutFrame(self.root)  # 关于信息界面
+        # self.calculatorPage
+        # self.selectPage = selectPage(self.root)  # 子系统选择界面
+        # self.window1Page = window1_Frame(self.root)  # 窗口1界面
+        # self.window2Page = window2_Frame(self.root)  # 窗口2界面
+        # self.aboutPage = AboutFrame(self.root)  # 关于信息界面
 
-        # 窗口选择界面的按钮布局
-        Button(self.selectPage, text='窗口1', font=('Microsoft YaHei', 12), command=self.window1_Disp).grid(stick=E + W)
-        Label(self.selectPage).grid(stick=E + W)  # 空一行
-        Label(self.selectPage).grid(stick=E + W)  # 空一行
-        Button(self.selectPage, text='窗口2', font=('Microsoft YaHei', 12), command=self.window2_Disp).grid(stick=E + W)
+        # # 窗口选择界面的按钮布局
+        # Button(self.selectPage, text='窗口1', font=('Microsoft YaHei', 12), command=self.window1_Disp).grid(stick=E + W)
+        # Label(self.selectPage).grid(stick=E + W)  # 空一行
+        # Label(self.selectPage).grid(stick=E + W)  # 空一行
+        # Button(self.selectPage, text='窗口2', font=('Microsoft YaHei', 12), command=self.window2_Disp).grid(stick=E + W)
 
-        # 窗口1界面的按钮布局
-        Button(self.window1Page, text='西瓜数据', font=('Microsoft YaHei', 12), command=self.Watermelon_Disp).grid(
-            stick=E + W, padx=10)
-        Label(self.window1Page).grid(stick=E + W)  # 空一行
-        Label(self.window1Page).grid(stick=E + W)  # 空一行
-        Button(self.window1Page, text='返回', font=('Microsoft YaHei', 12), command=self.selcetmodel).grid(stick=E + W,
-                                                                                                         padx=10)
+        # # 窗口1界面的按钮布局
+        # Button(self.window1Page, text='西瓜数据', font=('Microsoft YaHei', 12), command=self.Watermelon_Disp).grid(
+        #     stick=E + W, padx=10)
+        # Label(self.window1Page).grid(stick=E + W)  # 空一行
+        # Label(self.window1Page).grid(stick=E + W)  # 空一行
+        # Button(self.window1Page, text='返回', font=('Microsoft YaHei', 12), command=self.selcetmodel).grid(stick=E + W,
+        #                                                                                                  padx=10)
 
-        # 窗口2系统界面的按钮布局
-        Button(self.window2Page, text='其他界面', font=('Microsoft YaHei', 12)).grid(stick=E + W, padx=10)
-        Label(self.window2Page).grid(stick=E + W)  # 空一行
-        Label(self.window2Page).grid(stick=E + W)  # 空一行
-        Button(self.window2Page, text='返回', font=('Microsoft YaHei', 12), command=self.selcetmodel).grid(stick=E + W,
-                                                                                                         padx=10)
+        # # 窗口2系统界面的按钮布局
+        # Button(self.window2Page, text='其他界面', font=('Microsoft YaHei', 12)).grid(stick=E + W, padx=10)
+        # Label(self.window2Page).grid(stick=E + W)  # 空一行
+        # Label(self.window2Page).grid(stick=E + W)  # 空一行
+        # Button(self.window2Page, text='返回', font=('Microsoft YaHei', 12), command=self.selcetmodel).grid(stick=E + W,
+        #                                                                                                  padx=10)
 
-        self.selectPage.pack()  # 默认显示诊断子系统选择界面
+        # self.selectPage.pack()  # 默认显示诊断子系统选择界面
+        # menubar = Menu(self.root)
+        # menubar.add_command(label='窗口选择', command=self.selcetmodel)
+        # menubar.add_command(label='窗口1', command=self.window1_Disp)
+        # menubar.add_command(label='窗口2', command=self.window2_Disp)
+        # menubar.add_command(label='关于', command=self.about_Disp)
+        # self.root['menu'] = menubar  # 设置菜单栏
+
+        # 菜单栏 横向
         menubar = Menu(self.root)
-        menubar.add_command(label='窗口选择', command=self.selcetmodel)
-        menubar.add_command(label='窗口1', command=self.window1_Disp)
-        menubar.add_command(label='窗口2', command=self.window2_Disp)
-        menubar.add_command(label='关于', command=self.about_Disp)
-        self.root['menu'] = menubar  # 设置菜单栏
+        # 一级菜单 竖向
+        graphMenu = Menu(menubar, tearoff=0)
+        menubar.add_cascade(label='交互图形', menu=graphMenu)
+        # 在graphMenu菜单项添加命令选项
+        graphMenu.add_command(label='计算器', )   # 点击调用do_job command=self.Calculator
+        graphMenu.add_command(label='小人走路？') #https://zhuanlan.zhihu.com/p/140363413
+        
+        sqlMenu = Menu(menubar, tearoff=0)
+        menubar.add_cascade(label='数据库', menu=sqlMenu)
+        # 在graphMenu菜单项添加命令选项
+        sqlMenu.add_command(label='操作——1')   # 点击调用do_job
+        sqlMenu.add_command(label='操作——2')
+        
+        daMenu = Menu(menubar, tearoff=0)
+        menubar.add_cascade(label='数据分析', menu=daMenu)
+        # 在graphMenu菜单项添加命令选项
+        daMenu.add_command(label='聚类')   # 点击调用do_job
+        daMenu.add_command(label='分类')
+
+        aboutMenu = Menu(menubar, tearoff=0)
+        menubar.add_cascade(label='关于', menu=aboutMenu)
+        # 在graphMenu菜单项添加命令选项
+        aboutMenu.add_command(label='操作——1')   # 点击调用do_job
+        aboutMenu.add_command(label='操作——2')
+
+
+        self.root.config(menu=menubar)
+    
+    # def Calculator(self):
+    #     self.calculatorPage.pack()
 
     def selcetmodel(self):
         self.selectPage.pack()
