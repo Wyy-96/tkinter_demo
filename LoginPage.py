@@ -1,6 +1,10 @@
 from tkinter.messagebox import *
+from turtle import color
 from MainPage import *
-# import pymysql
+from tkinter import *
+from PIL import Image, ImageTk
+import tkinter as tk
+import pymysql
 
 class LoginPage(object):
     def __init__(self, master=None):
@@ -29,16 +33,13 @@ class LoginPage(object):
         # 创建登录的Frame
         self.loginPage = Frame(self.root,background="")  
         self.loginPage.place(x=self.width/2-100, y=self.height/2-100)
-        ttk.Label(self.loginPage,text="登录").grid(row=0, stick=W)
-        ttk.Label(self.loginPage, text='账户：').grid(row=1, stick=W, pady=10)
-
-        # Entry
-        ttk.Entry(self.loginPage, textvariable=self.username).grid(row=1, column=1, stick=E)
+        ttk.Label(self.loginPage, text='账户：').grid(row=1, stick=W, pady=10)      
+        tk.Entry(self.loginPage, textvariable=self.username,font=('song',17),width=17,bg='#f6f6f6',fg='#8b7575').grid(row=1, column=1, stick=E)
         ttk.Label(self.loginPage, text='密码：').grid(row=2, stick=W, pady=10)
         ttk.Entry(self.loginPage, textvariable=self.password, show='*').grid(row=2, column=1, stick=E)
         ttk.Button(self.loginPage, text='登录', command=self.loginCheck).grid(row=3, stick=W, pady=10)
         ttk.Button(self.loginPage, text='注册', command=self.register).grid(row=3, column=2,stick=W, pady=10)
-        ttk.Button(self.loginPage, text='退出', command=self.loginPage.quit).grid(row=3, column=3, stick=E)
+        # ttk.Button(self.loginPage, text='退出', command=self.loginPage.quit).grid(row=3, column=3, stick=E)
 
     def createRegisterPage(self):
     # 创建注册的Frame
@@ -52,7 +53,7 @@ class LoginPage(object):
       ttk.Entry(self.registerPage, textvariable=self.password, show='*').grid(row=2, column=1, stick=E)
       ttk.Button(self.registerPage, text='登录', command=self.login).grid(row=3, stick=W, pady=10)
       ttk.Button(self.registerPage, text='注册', command=self.registerCheck).grid(row=3, column=2,stick=W, pady=10)
-      ttk.Button(self.registerPage, text='退出', command=self.registerPage.quit).grid(row=3, column=3, stick=E)  
+    #   ttk.Button(self.registerPage, text='退出', command=self.registerPage.quit).grid(row=3, column=3, stick=E)  
 
     def loginCheck(self):
         entry_uname = self.username.get()
@@ -108,3 +109,4 @@ class LoginPage(object):
 
     def fail_tip(self):
         showerror(title='错误消息框', message='用户名或密码错误')
+    
