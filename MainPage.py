@@ -5,6 +5,7 @@ from LoginPage import *
 from Calculator import *
 from ImageScalerPlus import *
 from PencilSketch import *
+from TicTacToe import *
 
 class MainPage(object):
     def __init__(self, master):
@@ -19,7 +20,9 @@ class MainPage(object):
         self.calculator = Calculator(self.root) # 预注册选择界面
         self.imageScaler = ImageScaler(self.root) # 预注册选择界面
         self.pencilSketch = PencilSketch(self.root) # 预注册选择界面
-    
+        self.TicTacToe =  TicTacToe(self.root).pack()
+
+
     def Menu(self):
         # 菜单栏 横向
         menubar = Menu(self.root)
@@ -27,7 +30,7 @@ class MainPage(object):
         graphMenu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label='小游戏', menu=graphMenu)
         # 在graphMenu菜单项添加命令选项
-        graphMenu.add_command(label='', )   # 点击调用do_job command=self.Calculator
+        graphMenu.add_command(label='井字棋')   
         graphMenu.add_command(label='') #https://zhuanlan.zhihu.com/p/140363413、https://www.yisu.com/zixun/690619.html
         
         sqlMenu = Menu(menubar, tearoff=0)
