@@ -26,13 +26,14 @@ class Calculator(Frame):
         )
 
         self.label.grid(row=1, column=0, columnspan=4, sticky="ew")
-        ttk.Style().configure("TButton", padding=40,relief="flat", 
+        ttk.Style().configure("TButton", relief="flat", 
             background="#ccc",font="song 20",)
 
         for index, key in enumerate("147C2580369=+-*/"):
             ttk.Button(
                 self,
                 text=key,
+                padding="30 40 30 40",
                 style="TButton" if key != "=" else "Accent.TButton",
                 command=partial(self.button_pressed, key),
             ).grid(row=index % 4 + 5, column=index // 4, sticky="nsew", padx=2, pady=2)
