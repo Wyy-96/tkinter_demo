@@ -12,7 +12,6 @@ class ImageScaler(Frame):
         Frame.__init__(self, master)
         self.rowList = []
         self.savePath = ""
-        self.factor = 0
         self.imageSave = ""
         self.createPage()
 
@@ -114,15 +113,16 @@ class ImageScaler(Frame):
 
         f1 = 1.0*w_box/w # 1.0 forces float division in Python2  
         f2 = 1.0*h_box/h  
-        self.factor = min([f1, f2])  
+        factor = min([f1, f2])  
         #print(f1, f2, factor) # test  
         # use best down-sizing filter  
-        width = int(w*self.factor)  
-        height = int(h*self.factor)  
+        width = int(w*factor)  
+        height = int(h*factor)  
         return pil_image.resize((width, height), Image.ANTIALIAS)  
 
     # 选择保存位置
     def onSaveClick(self):
+        self.savePath = ""
         self.savePath = filedialog.askdirectory()
         if not self.savePath:
             self.showError("文件路径错误！")
