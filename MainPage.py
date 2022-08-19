@@ -5,7 +5,11 @@ from LoginPage import *
 from Calculator import *
 from ImageScalerPlus import *
 from PencilSketch import *
+<<<<<<< HEAD
 from ChouJiang import *
+=======
+from TicTacToe import *
+>>>>>>> 11d9626c6c66c47f203873647daed02bb30f2ea7
 
 class MainPage(object):
     def __init__(self, master):
@@ -20,8 +24,14 @@ class MainPage(object):
         self.calculator = Calculator(self.root) # 预注册选择界面
         self.imageScaler = ImageScaler(self.root) # 预注册选择界面
         self.pencilSketch = PencilSketch(self.root) # 预注册选择界面
+<<<<<<< HEAD
         self.chouJiang = ChouJiang(self.root) # 预注册选择界面
     
+=======
+        self.TicTacToe =  TicTacToe(self.root)
+
+
+>>>>>>> 11d9626c6c66c47f203873647daed02bb30f2ea7
     def Menu(self):
         # 菜单栏 横向
         menubar = Menu(self.root)
@@ -29,8 +39,8 @@ class MainPage(object):
         graphMenu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label='小游戏', menu=graphMenu)
         # 在graphMenu菜单项添加命令选项
-        graphMenu.add_command(label='', )   # 点击调用do_job command=self.Calculator
-        graphMenu.add_command(label='') #https://zhuanlan.zhihu.com/p/140363413、https://www.yisu.com/zixun/690619.html
+        graphMenu.add_command(label='井字棋',command=self.selcetTicTacToe)   
+        graphMenu.add_command(label='') #
         
         sqlMenu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label='小工具', menu=sqlMenu)
@@ -50,35 +60,23 @@ class MainPage(object):
         self.calculator.pack()
         self.imageScaler.pack_forget()
         self.pencilSketch.pack_forget()
+        self.TicTacToe.pack_forget()
 
     def selcetImageScaler(self):
         self.calculator.pack_forget()
         self.pencilSketch.pack_forget()
         self.imageScaler.pack()
+        self.TicTacToe.pack_forget()
         
     def selcetPencilSketch(self):
         self.calculator.pack_forget()
         self.imageScaler.pack_forget()
         self.pencilSketch.pack()
+        self.TicTacToe.pack_forget()
 
-    def window1_Disp(self):
-        self.selectPage.pack_forget()
-        self.window1Page.pack_forget()
-        self.window2Page.pack_forget()
-        self.aboutPage.pack_forget()
-
-    def window2_Disp(self):
-        self.selectPage.pack_forget()
-        self.window1Page.pack_forget()
-        self.window2Page.pack()
-        self.aboutPage.pack_forget()
-
-    def about_Disp(self):
-        self.selectPage.pack_forget()
-        self.window1Page.pack_forget()
-        self.window2Page.pack_forget()
-        self.aboutPage.pack()
-
-    def Watermelon_Disp(self):  # FDT界面显示
-        self.subroot = Tk()  # 定义子窗口root
-        Watermelon_Page(self.subroot)
+    def selcetTicTacToe(self):
+        self.calculator.pack_forget()
+        self.imageScaler.pack_forget()
+        self.pencilSketch.pack_forget()
+        self.TicTacToe.clear()
+        self.TicTacToe.pack()
