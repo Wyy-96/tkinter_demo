@@ -6,6 +6,7 @@ from PIL import Image
 import threading
 from fileinput import filename
 import cv2
+import os
 
 class PencilSketch(Frame):
     def __init__(self, master):
@@ -41,7 +42,6 @@ class PencilSketch(Frame):
 
     # 点击处理
     def onPencilSketchButtonClick(self):
-        self.pencilSketch()
         self.setSavePath()
         
         # 多线程处理并保存
@@ -57,14 +57,14 @@ class PencilSketch(Frame):
         self.rowList.clear()
         self.openVar.set(" ")
 
-    def pencilSketch(self,imageName):
-        image = Image.open(imageName)
+    def pencilSketch(self,file_pathname):
+        image = cv2.imread(file_pathname)
         # image = cv2.imread("images/dog.jpg")
-        cv2.imshow("Dog", image)
+        cv2.imshow("Original Image", image)
         cv2.waitKey(0)
 
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        cv2.imshow("New Dog", gray_image)
+        cv2.imshow("Gray Image", gray_image)
         cv2.waitKey(0)
 
         inverted_image = 255 - gray_image
@@ -81,7 +81,7 @@ class PencilSketch(Frame):
         cv2.imshow("original image", image)
         cv2.imshow("pencil sketch", pencil_sketch)
         cv2.waitKey(0)
-        return image
+        # return image
 
 
     # 选择保存位置
