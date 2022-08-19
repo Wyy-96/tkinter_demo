@@ -5,6 +5,7 @@ from LoginPage import *
 from Calculator import *
 from ImageScalerPlus import *
 from PencilSketch import *
+from ChouJiang import *
 
 class MainPage(object):
     def __init__(self, master):
@@ -19,6 +20,7 @@ class MainPage(object):
         self.calculator = Calculator(self.root) # 预注册选择界面
         self.imageScaler = ImageScaler(self.root) # 预注册选择界面
         self.pencilSketch = PencilSketch(self.root) # 预注册选择界面
+        self.chouJiang = ChouJiang(self.root) # 预注册选择界面
     
     def Menu(self):
         # 菜单栏 横向

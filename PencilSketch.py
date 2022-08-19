@@ -17,18 +17,20 @@ class PencilSketch(Frame):
         self.createPage()
 
     def createPage(self):
-        # 导入图片
-        self.openButton = ttk.Button(
-            self, text="导入图片",command=self.onOpenButtonClick)
-        self.openButton.grid(column=0, row=1, columnspan=3, sticky="ew")
+        # 选择图片
+        self.openButton = Button(self, text="选择图片",font="song 15",command=self.onOpenButtonClick)
+        self.openButton.grid(column=1, row=0, rowspan=4, sticky="ew")
         #路径显示
         self.openVar = StringVar()
         self.openVar.set("")
-        self.openLabel = Label(self,textvariable=self.openVar,anchor="c",bg="gray")
-        self.openLabel.grid(column=0,row=2,columnspan=3,sticky="ew")
+        self.openLabel = Label(self,textvariable=self.openVar,anchor="c",width=50,bg="gray",font="song 10")
+        self.openLabel.grid(column=2,row=0,rowspan=4,sticky="ew")
         #处理
-        self.pencilSketchButton = Button(self,text="绘制铅笔图",command=self.onPencilSketchButtonClick)
-        self.pencilSketchButton.grid(column=2,row=6,columnspan=1,sticky="ew")
+        self.pencilSketchButton = Button(self,text="绘制铅笔图",font="song 15",command=self.onPencilSketchButtonClick)
+        self.pencilSketchButton.grid(column=3,row=0,rowspan=4,sticky="ew")
+        # 保存
+        self.saveButton = Button(self,text="保存",font="song 15",command=self.onSaveClick)
+        self.saveButton.grid(column=4,row=0,rowspan=4,sticky="ew")
 
      # 打开图片
     def onOpenButtonClick(self):
@@ -44,8 +46,7 @@ class PencilSketch(Frame):
 
     # 点击处理
     def onPencilSketchButtonClick(self):
-        # self.setSavePath()
-        
+        # self.setSavePath()       
         # 多线程处理并保存
         threads = []
         for row in self.rowList:
@@ -53,25 +54,26 @@ class PencilSketch(Frame):
             threads.append(t)
         for t in threads:
             t.start()
-    
-        self.showInfo("保存成功！")
         self.savePath = ""
-        self.rowList.clear()
-        self.openVar.set(" ")
+        
 
     def pencilSketch(self,file_pathname):
         image = cv2.imread(file_pathname)
         # image = cv2.imread("images/dog.jpg")
+        
         cv2.imshow("Original Image", image)
+        cv2.moveWindow("Original Image",50,150)
         cv2.waitKey(0)
-
+        
         # RGB彩色图片转为灰度图片
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        cv2.imshow("Gray Inverted", gray_image)
+        cv2.imshow("Gray Image", gray_image)
+        cv2.moveWindow("Gray Image",100,150)
         cv2.waitKey(0)
 
         inverted_image = 255 - gray_image
-        cv2.imshow("Inverted Inverted", inverted_image)
+        cv2.imshow("Inverted Image", inverted_image)
+        cv2.moveWindow("Inverted Image",200,150)
         cv2.waitKey()
 
         blurred = cv2.GaussianBlur(inverted_image, (21, 21), 0)
@@ -79,17 +81,30 @@ class PencilSketch(Frame):
         inverted_blurred = 255 - blurred
         pencil_sketch = cv2.divide(gray_image, inverted_blurred, scale=256.0)
         cv2.imshow("Pencil Sketch", pencil_sketch)
+        cv2.moveWindow("Pencil Sketch",250,150)
         cv2.waitKey(0)
 
         cv2.imshow("Original Image", image)
         cv2.imshow("Pencil Sketch", pencil_sketch)
+        cv2.moveWindow("Original Image",150,150)
+        cv2.moveWindow("Pencil Sketch",450,150)
         cv2.waitKey(0)
+        # savePath = "images/imgSave.png"
+        # cv2.imwrite(savePath, pencil_sketch)  # 保存图像文件
         # return image
 
 
     # 选择保存位置
-    def setSavePath(self):
+    def onSaveClick(self):
+        self.savePath = ""
         self.savePath = filedialog.askdirectory()
+        if not self.savePath:
+            self.showError("文件路径错误！")
+            return None
+        name = self.rowList[0].split("/")[-1]
+        # cv2.imwrite(self.savePath, pencil_sketch)  # 保存图像文件
+        # self.imageSave.save(self.savePath + '/scale_'+name)
+        cv2.imwrite(self.savePath+ '/pen_'+name, self.pencil_sketch)  # 保存图像文件
 
     def handleThread(self,row):
         self.pencilSketch(row)
