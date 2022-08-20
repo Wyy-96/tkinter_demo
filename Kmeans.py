@@ -5,7 +5,6 @@ from tkinter import ttk
 # 数据初始化
 import numpy as np
 import random
-import re
 import matplotlib.pyplot as plt
 
 
@@ -19,22 +18,29 @@ class Kmeans(Frame):
     def createPage(self):
         self.tab = Frame(self)
         self.tab.pack()
+        Label(self.tab,text="K-Means 聚类效果",font="song 30",anchor="c").grid(row=0, column=0, sticky="ew")
+        Label(self.tab,text="请选择聚类数K:",font="song 16").grid(row=1, column=0, padx=(20, 10), pady=(20, 0), sticky="ew")
+        
         # Scale
         self.scale = ttk.Scale(
             self.tab,
             from_=1,
-            to=10,
+            to=6,
             variable=self.getK,
             command= lambda _: self.getK.set(int(self.scale.get())),
         )
-        self.scale.grid(row=0, column=0, padx=(20, 10), pady=(20, 0), sticky="ew")
+        self.scale.grid(row=1, column=2, columnspan=3,padx=(20, 10), pady=(20, 0), sticky="ew")
+        Label(self.tab,width=30).grid(row=1, column=3)
 
-        self.lableK = ttk.Label(
-            self.tab, textvariable=self.getK
+        self.lableK = Label(
+            self.tab, textvariable=self.getK,font="song 30"
         )
-        self.lableK.grid(row=0, column=1, padx=(10, 20), pady=(20, 0), sticky="ew")
+        self.lableK.grid(row=1, column=5, padx=(10, 20), pady=(20, 0), sticky="ew")
+
+        
+        
         self.getK.set(4)
-        ttk.Button(self.tab,text="btn",command=self.startCalu).grid(row=2, column=2, padx=(10, 20), pady=(20, 0), sticky="ew")
+        ttk.Button(self.tab,text="开始训练",command=self.startCalu).grid(row=4, column=0, columnspan=5,padx=(10, 20), pady=(20, 0), sticky="ew")
 
     def startCalu(self):
         self.dataSet = self.loadDataSet()
