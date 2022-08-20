@@ -16,44 +16,64 @@ class LoginPage(object):
 
     def initSize(self):
         # 初次设置窗口大小
-        self.width = 1100
+        self.width = 950
         self.height = 700
         # 保持居中
         x = int((self.root.winfo_screenwidth() / 2) - (self.width / 2))
         y = int((self.root.winfo_screenheight() / 2) - (self.height / 2))
         self.root.minsize(self.width, self.height)
         self.root.geometry(f"+{x}+{y}")
+        # canvas_root = tk.Canvas(self.root, width=x, height=y)
+        # im_root = tk.PhotoImage('images\\wel_bg.png')
+        # canvas_root.create_image(x, y, image=im_root)
+        # canvas_root.pack()
+        #
+        # photo = PhotoImage(file='images\\wel_bg.png')
+        # L_photo = ttk.Label(self.root, image=photo)
+        # L_photo.image = photo
+        # L_photo.grid()
+        #
+
 
     def createPage(self):
         self.root.after(10)
+        self.createBg()
         self.createLoginPage()
         self.createRegisterPage()
+        self.registerPage.place_forget()
+
+    def createBg(self):
+        self.bgPage = Frame(self.root)
+        self.bgPage.place(x=0, y=0)
+        photo = PhotoImage(file='images\\wel_bg.png')
+        L_photo = ttk.Label(self.bgPage, image=photo)
+        L_photo.image = photo
+        L_photo.grid()
 
     def createLoginPage(self):
         # 创建登录的Frame
-        self.loginPage = Frame(self.root,background="")  
-        self.loginPage.place(x=self.width/2-100, y=self.height/2-100)
-        ttk.Label(self.loginPage, text='账户：').grid(row=1, stick=W, pady=10)      
-        tk.Entry(self.loginPage, textvariable=self.username,font=('song',17),width=17,bg='#f6f6f6',fg='#8b7575').grid(row=1, column=1, stick=E)
+        self.loginPage = Frame(self.root, background="white")
+        self.loginPage.place(x=self.width/2+90, y=self.height/2+150)
+        ttk.Label(self.loginPage, text='账户：').grid(row=1, stick=W, pady=10)
+        tk.Entry(self.loginPage, textvariable=self.username, font=('song', 17), width=12, ).grid(row=1, column=1, stick=W)
         ttk.Label(self.loginPage, text='密码：').grid(row=2, stick=W, pady=10)
-        ttk.Entry(self.loginPage, textvariable=self.password, show='*').grid(row=2, column=1, stick=E)
-        ttk.Button(self.loginPage, text='登录', command=self.loginCheck).grid(row=3, stick=W, pady=10)
-        ttk.Button(self.loginPage, text='注册', command=self.register).grid(row=3, column=2,stick=W, pady=10)
+        ttk.Entry(self.loginPage, textvariable=self.password, show='*', font=('song', 17), width=11).grid(row=2, column=1, stick=W)
+        ttk.Button(self.loginPage, text='登录', command=self.loginCheck).grid(row=3, column=0, stick=W, pady=10)
+        ttk.Button(self.loginPage, text='注册', command=self.register).grid(row=3, column=1, stick=E, pady=10)
         # ttk.Button(self.loginPage, text='退出', command=self.loginPage.quit).grid(row=3, column=3, stick=E)
 
     def createRegisterPage(self):
     # 创建注册的Frame
-      self.registerPage = Frame(self.root) 
+      self.registerPage = Frame(self.root)
+      self.registerPage.place(x=self.width / 2 + 90, y=self.height / 2 + 150)
 
-      ttk.Label(self.registerPage,text="注册").grid(row=0, stick=W)
       ttk.Label(self.registerPage, text='账户：').grid(row=1, stick=W, pady=10)
       
       ttk.Entry(self.registerPage, textvariable=self.username).grid(row=1, column=1, stick=E)
       ttk.Label(self.registerPage, text='密码：').grid(row=2, stick=W, pady=10)
       ttk.Entry(self.registerPage, textvariable=self.password, show='*').grid(row=2, column=1, stick=E)
-      ttk.Button(self.registerPage, text='登录', command=self.login).grid(row=3, stick=W, pady=10)
-      ttk.Button(self.registerPage, text='注册', command=self.registerCheck).grid(row=3, column=2,stick=W, pady=10)
-    #   ttk.Button(self.registerPage, text='退出', command=self.registerPage.quit).grid(row=3, column=3, stick=E)  
+      ttk.Button(self.registerPage, text='返回', command=self.login).grid(row=3, stick=W, pady=10)
+      ttk.Button(self.registerPage, text='点击注册', command=self.registerCheck).grid(row=3, column = 1,stick=E, pady=10)
 
     def loginCheck(self):
         entry_uname = self.username.get()
@@ -84,16 +104,19 @@ class LoginPage(object):
         #     print('登录异常')
         self.success_tip(entry_uname)
 
-
     def login(self):
         # 切换frame
         self.registerPage.place_forget()
-        self.loginPage.place(x=self.width/2-100, y=self.height/2-100)
+        self.loginPage.place(x=self.width / 2 + 90, y=self.height / 2 + 150)
+        # self.loginPage.pack()
+        # self.registerPage.pack()
+        # self.loginPage.place(x=self.width/2-100, y=self.height/2-100)
 
     def register(self):
         # 切换frame
         self.loginPage.place_forget()
-        self.registerPage.place(x=self.width/2-100, y=self.height/2-100)
+        self.registerPage.place(x=self.width / 2 + 90, y=self.height / 2 + 150)
+
 
     def registerCheck(self):
         entry_uname = self.username.get()
@@ -126,17 +149,14 @@ class LoginPage(object):
         #
         #     else:
         #         showinfo(title='消息提示框',message='输入为空！')
-        # showinfo(title='消息提示框', message='注册成功')
-
+        #
         # except Exception as e:
         #     showinfo(title='消息提示框', message='输入异常！')
         showinfo(title='消息提示框', message='注册成功')
-        self.registerPage.place_forget()
-        self.loginPage.place(x=self.width/2-100, y=self.height/2-100)
-        
 
     def success_tip(self, username):
         showinfo(title='消息提示框', message=username + '登录成功')
+        self.bgPage.destroy()
         self.loginPage.destroy()
         self.registerPage.destroy()
         MainPage(self.root)

@@ -6,12 +6,13 @@ from threading import Thread as process
 
 def data_connect():
     try:
-        connect = pymysql.Connect(host='localhost',
-          port=3306,
-          user='root',
-          passwd='root',
-          db='test_py',
-          charset='utf8')
+        connect = pymysql.Connect(
+            host=user_host,
+            port=user_port,
+            user=user_name,
+            passwd=user_passwd,
+            db=user_database,
+        )
         cursor = connect.cursor()
         data_connect = tkinter.Tk()
         data_connect.title('数据库操作界面')
@@ -46,7 +47,6 @@ def data_connect():
             e = None
             del e
 
-
 def button_connect_select(input_name, input_condtion, cursor, src, connect):
     try:
         connect = pymysql.Connect(host=user_host,
@@ -79,11 +79,106 @@ def button_connect_select(input_name, input_condtion, cursor, src, connect):
             e = None
             del e
 
-
 def button_sql(input_sql_text, cursor, src, connect):
     sql = input_sql_text.get()
     rows = cursor.execute(sql)
     src.insert(tkinter.END, pd.read_sql(sql, connect))
     src.insert(tkinter.END, '\n')
     src.update()
-# okay decompiling sqlPage.cpython-37.pyc
+
+def data_show_get():
+    try:
+        data_show_get = tkinter.Tk()  # 定义一个窗体
+        data_show_get.title('数据库参数显示界面')  # 定义窗体标题 
+        data_show_get.geometry('500x240+50+10')  # 设置窗体的大小250x120像素和初始位置（50，10）
+        show_label_host = Label(data_show_get, text="当前服务器地址")
+        show_label_host.grid(row=0, column=2)
+        show_label_port = Label(data_show_get, text="当前端口号")
+        show_label_port.grid(row=1, column=2)
+        show_label_account = Label(data_show_get, text  ="当前账号")
+        show_label_account.grid(row=2, column=2)
+        show_label_password = Label(data_show_get, text="当前密码")
+        show_label_password.grid(row=3, column=2)
+        show_label_database = Label(data_show_get, text="当前数据库")
+        show_label_database.grid(row=4, column=2)
+
+        show_host = Text(data_show_get, height=1, width=15)
+        show_host.insert(1.0, user_host)
+        show_host.grid(row=0, column=3)
+        show_port = Text(data_show_get, height=1, width=15)
+        show_port.insert(1.0, user_port)
+        show_port.grid(row=1, column=3)
+        show_name = Text(data_show_get, height=1, width=15)
+        show_name.grid(row=2, column=3)
+        show_name.insert(1.0, user_name)
+        show_passwd = Text(data_show_get, height=1, width=15)
+        show_passwd.grid(row=3, column=3)
+        show_passwd.insert(1.0, user_passwd)
+        show_database = Text(data_show_get, height=1, width=15)
+        show_database.grid(row=4, column=3)
+        show_database.insert(1.0, user_database)
+        data_show_get.mainloop()  # 表示事件循环，使窗体一直保持显示状态
+    except Exception as e:
+        tkinter.messagebox.showinfo('提示', '请尝试重新运行')
+
+def button_set(input_host,input_port,input_account,input_passwd,inut_database):
+    try:
+        global user_host
+        global user_port
+        global user_name
+        global user_passwd
+        global user_database
+        if(input_host.get()!=''):   
+            user_host=input_host.get()
+        if(input_port.get()!=''):   
+            user_port=int(input_port.get())
+        if(input_account.get()!=''):
+            user_name=input_account.get()
+        if(input_passwd.get()!=''):
+            user_passwd=input_passwd.get()  
+        if(inut_database.get()!=''):
+            user_database=inut_database.get()
+        pymysql.Connect(
+            host=user_host,
+            port=user_port,
+            user=user_name,
+            passwd=user_passwd,
+            db=user_database,
+        )
+        tkinter.messagebox.showinfo('提示', '连接成功！')
+    except Exception as e:
+        tkinter.messagebox.showinfo('提示', '请尝试重新设置')
+
+# 更新数据库连接参数OK
+def data_show():
+    try:
+        data_show = tkinter.Tk()  # 定义一个窗体
+        data_show.title('数据库参数设置界面')  # 定义窗体标题 
+        data_show.geometry('500x240+50+10')  # 设置窗体的大小250x120像素和初始位置（50，10）
+        input_label_host = Label(data_show, text="请输入服务器地址")
+        input_label_host.grid(row=0, column=0)
+        input_label_port = Label(data_show, text="请输入端口号")
+        input_label_port.grid(row=1, column=0)
+        input_label_account = Label(data_show, text="请输入账号")
+        input_label_account.grid(row=2, column=0)
+        input_label_password = Label(data_show, text="请输入密码")
+        input_label_password.grid(row=3, column=0)
+        input_label_database = Label(data_show, text="请输入数据库名字")
+        input_label_database.grid(row=4, column=0)
+
+        input_host = Entry(data_show, width=15)
+        input_host.grid(row=0, column=1)
+        input_port = Entry(data_show, width=15)
+        input_port.grid(row=1, column=1)
+        input_account = Entry(data_show, width=15)
+        input_account.grid(row=2, column=1)
+        input_passwd = Entry(data_show, width=15, show='*')
+        input_passwd.grid(row=3, column=1)
+        input_database = Entry(data_show, width=15)
+        input_database.grid(row=4, column=1)
+        btn1 = tkinter.Button(data_show, text='建立连接', command=lambda: process(
+            target=button_set(input_host, input_port, input_account, input_passwd, input_database)).start())
+        btn1.grid(row=5, column=0)
+        data_show.mainloop()  # 表示事件循环，使窗体一直保持显示状态
+    except Exception as e:
+        tkinter.messagebox.showinfo('提示', '输入有误，请重新输入！')

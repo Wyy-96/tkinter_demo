@@ -45,8 +45,10 @@ class MainPage(object):
         daMenu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label='数据库', menu=daMenu)
         # 在graphMenu菜单项添加命令选项
-        daMenu.add_command(label='操作1')   # 点击调用do_job
-        daMenu.add_command(label='操作2')
+        daMenu.add_command(label='MySQL连接参数设置', command=SQLDeal.data_show)
+        daMenu.add_command(label='MySQL连接参数显示', command=SQLDeal.data_show_get)
+        daMenu.add_command(label='连接数据库', command=SQLDeal.data_connect)
+
         self.root.config(menu=menubar)
 
     def selcetCalculator(self):
