@@ -23,9 +23,9 @@ class MainPage(object):
         self.calculator = Calculator(self.root) # 预注册选择界面
         self.imageScaler = ImageScaler(self.root) # 预注册选择界面
         self.pencilSketch = PencilSketch(self.root) # 预注册选择界面
-        self.TicTacToe =  TicTacToe(self.root)
+        self.TicTacToe =  TicTacToe(self.root).pack()
         self.chouJiang = ChouJiang(self.root) # 预注册选择界面
-        self.kmeans = Kmeans(self.root).pack()
+        self.kmeans = Kmeans(self.root)
 
 
     def Menu(self):
@@ -54,7 +54,7 @@ class MainPage(object):
 
         mlMenu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label='机器学习', menu=mlMenu)
-        mlMenu.add_command(label='k-means')
+        mlMenu.add_command(label='k-means',command=self.selectKmeans)
 
         self.root.config(menu=menubar)
 
@@ -64,6 +64,7 @@ class MainPage(object):
         self.pencilSketch.pack_forget()
         self.TicTacToe.pack_forget()
         self.chouJiang.pack_forget()
+        self.kmeans.pack_forget()
 
     def selcetImageScaler(self):
         self.calculator.pack_forget()
@@ -71,6 +72,7 @@ class MainPage(object):
         self.imageScaler.pack()
         self.TicTacToe.pack_forget()
         self.chouJiang.pack_forget()
+        self.kmeans.pack_forget()
         
     def selcetPencilSketch(self):
         self.calculator.pack_forget()
@@ -78,6 +80,7 @@ class MainPage(object):
         self.pencilSketch.pack()
         self.TicTacToe.pack_forget()
         self.chouJiang.pack_forget()
+        self.kmeans.pack_forget()
 
     def selcetTicTacToe(self):
         self.calculator.pack_forget()
@@ -86,6 +89,7 @@ class MainPage(object):
         self.TicTacToe.clear()
         self.TicTacToe.pack()
         self.chouJiang.pack_forget()
+        self.kmeans.pack_forget()
     
     def selcetChouJiang(self):
         self.calculator.pack_forget()
@@ -93,3 +97,12 @@ class MainPage(object):
         self.pencilSketch.pack_forget()
         self.TicTacToe.pack_forget()
         self.chouJiang.pack()
+        self.kmeans.pack_forget()
+
+    def selectKmeans(self):
+        self.calculator.pack_forget()
+        self.imageScaler.pack_forget()
+        self.pencilSketch.pack_forget()
+        self.TicTacToe.pack_forget()
+        self.chouJiang.pack_forget()
+        self.kmeans.pack()
