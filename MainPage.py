@@ -7,6 +7,7 @@ from ImageScalerPlus import *
 from PencilSketch import *
 from TicTacToe import *
 from ChouJiang import *
+import SQLDeal
 
 class MainPage(object):
     def __init__(self, master):
