@@ -10,76 +10,70 @@ from random import random
 from tkinter import messagebox as tkMessageBox
  
  
-class choujiang(Frame):
+class ChouJiang(Frame):
     # 初始化魔术方法
     def __init__(self,master):
         Frame.__init__(self, master)
-        # 准备好界面
-        self.root = tkinter.Tk()
-        self.root.title('抽奖转盘')
-        self.root.minsize(300, 300)
         # 声明一个是否按下开始的变量
         self.isloop = False
         self.newloop = False
         self.value = []
         # 调用设置界面的方法
         self.setwindow()
-        self.root.mainloop()
- 
  
     # 界面布局方法
     def setwindow(self):
         # 开始停止按钮
-        self.btn_start = tkinter.Button(self.root, text='start/stop', command=self.newtask)
-        self.btn_start.place(x=125,y=125,width=70,height=70)
+        self.btn_start = tkinter.Button(self, text='start/stop',width=12,bg='#c4e8fe', command=self.newtask)
+        self.btn_start.grid(row=1,column=2,columnspan=2)
+         
  
- 
-        self.btn1=tkinter.Button(self.root,text='1',bg='red')
-        self.btn1.place(x=20,y=20,width=50,height=50)
+        self.btn1=tkinter.Button(self,text='1',bg='red',width=6)
+        self.btn1.grid(row=2,column=1)
         
         
-        self.btn2=tkinter.Button(self.root,text='2',bg='white')
-        self.btn2.place(x=90,y=20,width=50,height=50)
+        self.btn2=tkinter.Button(self,text='2',bg='white',width=6)
+        self.btn2.grid(row=2,column=2)
         
         
-        self.btn3=tkinter.Button(self.root,text='3',bg='white')
-        self.btn3.place(x=160,y=20,width=50,height=50)
+        self.btn3=tkinter.Button(self,text='3',bg='white',width=6)
+        self.btn3.grid(row=2,column=3)
         
         
-        self.btn4=tkinter.Button(self.root,text='3',bg='white')
-        self.btn4.place(x=230,y=20,width=50,height=50)
+        self.btn4=tkinter.Button(self,text='3',bg='white',width=6)
+        self.btn4.grid(row=2,column=4)
         
         
-        self.btn5=tkinter.Button(self.root,text='3',bg='white')
-        self.btn5.place(x=230,y=90,width=50,height=50)
+        self.btn5=tkinter.Button(self,text='3',bg='white',width=6)
+        self.btn5.grid(row=3,column=4)
         
         
-        self.btn6=tkinter.Button(self.root,text='2',bg='white')
-        self.btn6.place(x=230,y=160,width=50,height=50)
+        self.btn6=tkinter.Button(self,text='2',bg='white',width=6)
+        self.btn6.grid(row=4,column=4)
         
         
-        self.btn7=tkinter.Button(self.root,text='1',bg='white')
-        self.btn7.place(x=230,y=230,width=50,height=50)
+        self.btn7=tkinter.Button(self,text='1',bg='white',width=6)
+        self.btn7.grid(row=5,column=4)
         
         
-        self.btn8=tkinter.Button(self.root,text='3',bg='white')
-        self.btn8.place(x=160,y=230,width=50,height=50)
+        self.btn8=tkinter.Button(self,text='3',bg='white',width=6)
+        self.btn8.grid(row=5,column=3)
         
         
-        self.btn9=tkinter.Button(self.root,text='2',bg='white')
-        self.btn9.place(x=90,y=230,width=50,height=50)
+        self.btn9=tkinter.Button(self,text='2',bg='white',width=6)
+        self.btn9.grid(row=5,column=2)
         
         
-        self.btn10=tkinter.Button(self.root,text='3',bg='white')
-        self.btn10.place(x=20,y=230,width=50,height=50)
+        self.btn10=tkinter.Button(self,text='3',bg='white',width=6)
+        self.btn10.grid(row=5,column=1)
         
         
-        self.btn11=tkinter.Button(self.root,text='1',bg='white')
-        self.btn11.place(x=20,y=160,width=50,height=50)
+        self.btn11=tkinter.Button(self,text='1',bg='white',width=6)
+        self.btn11.grid(row=4,column=1)
         
         
-        self.btn12=tkinter.Button(self.root,text='3',bg='white')
-        self.btn12.place(x=20,y=90,width=50,height=50)
+        self.btn12=tkinter.Button(self,text='3',bg='white',width=6)
+        self.btn12.grid(row=3,column=1)
         
         
         # 将所有选项组成列表
@@ -99,11 +93,11 @@ class choujiang(Frame):
                 self.newloop = False
                 self.value = self.girlfrends[i - 1]['text']
                 if self.value =='1':
-                    tkMessageBox.showinfo( "Winning Result", "恭喜获得一等奖 ！'")
+                    tkMessageBox.showinfo( "Winning Result", "恭喜获得一等奖！")
                 if self.value == '2':
-                    tkMessageBox.showinfo("Winning Result", "恭喜获得二等奖 ！")
+                    tkMessageBox.showinfo("Winning Result", "恭喜获得二等奖！")
                 if self.value == '3':
-                    tkMessageBox.showinfo("Winning Result", '恭喜获得三等奖！')
+                    tkMessageBox.showinfo("Winning Result", "恭喜获得三等奖！")
                 return
             # 延时操作
             time.sleep(0.1)
@@ -111,7 +105,7 @@ class choujiang(Frame):
             for x in self.girlfrends:
                 x['bg'] = 'white'
             # 将当前数值对应的组件变色
-            self.girlfrends[i]['bg'] = 'red'
+            self.girlfrends[i]['bg'] = '#e81123'
             # 变量+1
             i += 1
             # 如果i大于最大索引直接归零
@@ -130,6 +124,6 @@ class choujiang(Frame):
             self.isloop = False
             self.newloop = True
 #转盘效果
-# c = choujiang()
+# c = ChouJiang()
  
  

@@ -15,6 +15,7 @@ class PencilSketch(Frame):
         self.savePath = ""
         self.imageSave = ""
         self.createPage()
+        self.image  = ""
 
     def createPage(self):
         # 选择图片
@@ -91,8 +92,7 @@ class PencilSketch(Frame):
         cv2.waitKey(0)
         # savePath = "images/imgSave.png"
         # cv2.imwrite(savePath, pencil_sketch)  # 保存图像文件
-        # return image
-
+        self.image = pencil_sketch
 
     # 选择保存位置
     def onSaveClick(self):
@@ -102,14 +102,11 @@ class PencilSketch(Frame):
             self.showError("文件路径错误！")
             return None
         name = self.rowList[0].split("/")[-1]
-        # cv2.imwrite(self.savePath, pencil_sketch)  # 保存图像文件
-        # self.imageSave.save(self.savePath + '/scale_'+name)
-        cv2.imwrite(self.savePath+ '/pen_'+name, self.pencil_sketch)  # 保存图像文件
+        cv2.imwrite(self.savePath+ '/pen_'+name, self.image)  # 保存图像文件
+        self.showInfo('保存成功！')
 
     def handleThread(self,row):
         self.pencilSketch(row)
-        # name = row.split("/")[-1]
-        # self.pencilSketch(row).save(self.savePath+"/"+name)
 
     def showError(self, message):
         showerror(title='消息提示框', message=message)
