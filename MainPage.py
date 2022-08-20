@@ -7,6 +7,7 @@ from ImageScalerPlus import *
 from PencilSketch import *
 from TicTacToe import *
 from ChouJiang import *
+from Kmeans import *
 import SQLDeal
 
 class MainPage(object):
@@ -24,6 +25,7 @@ class MainPage(object):
         self.pencilSketch = PencilSketch(self.root) # 预注册选择界面
         self.TicTacToe =  TicTacToe(self.root)
         self.chouJiang = ChouJiang(self.root) # 预注册选择界面
+        self.kmeans = Kmeans(self.root).pack()
 
 
     def Menu(self):
@@ -49,6 +51,10 @@ class MainPage(object):
         daMenu.add_command(label='MySQL连接参数设置', command=SQLDeal.data_show)
         daMenu.add_command(label='MySQL连接参数显示', command=SQLDeal.data_show_get)
         daMenu.add_command(label='连接数据库', command=SQLDeal.data_connect)
+
+        mlMenu = Menu(menubar, tearoff=0)
+        menubar.add_cascade(label='机器学习', menu=mlMenu)
+        mlMenu.add_command(label='k-means')
 
         self.root.config(menu=menubar)
 
