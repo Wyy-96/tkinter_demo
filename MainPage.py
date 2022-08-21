@@ -50,10 +50,9 @@ class MainPage(object):
         # 在graphMenu菜单项添加命令选项
         daMenu.add_command(label='MySQL连接参数设置', command=SQLDeal.data_show)
         daMenu.add_command(label='MySQL连接参数显示', command=SQLDeal.data_show_get)
-        daMenu.add_command(label='连接数据库', command=SQLDeal.data_connect)
-        daMenu.add_command(label='INSERT', command=SQLDeal.data_connect_insert)
-
-
+        daMenu.add_command(label='理财产品信息库查询', command=SQLDeal.data_connect)
+        daMenu.add_command(label='理财产品信息变更', command=SQLDeal.data_connect_insert)
+        daMenu.add_command(label='理财产品信息删除', command=SQLDeal.data_connect_change)
 
         mlMenu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label='机器学习', menu=mlMenu)
