@@ -92,13 +92,11 @@ class LoginPage(object):
                     flag = True
                     if(flag):
                         self.user_login = entry_uname
-                        print(self.user_login)
                         if db_password == entry_psw:
                             self.success_tip(entry_uname)
                             break
                         else:
                             self.fail_tip()
-                            # print("count: ", count)
                             break
                 else:
                     flag = False
@@ -107,9 +105,9 @@ class LoginPage(object):
         except Exception as e:
             print(e)
             print('登录异常')
-        if (self.user_login_count == 1):
-            showinfo("提示", "用户密码已输错三次，，请点击“注册”创建新用户！")
-            
+        if (self.user_login_count <= 1):
+            showinfo("提示", "用户密码已输错三次，请点击“注册”创建新用户！")
+
     def login(self):
         # 切换frame
         self.registerPage.place_forget()
