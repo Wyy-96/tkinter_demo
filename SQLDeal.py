@@ -6,12 +6,19 @@ from threading import Thread as process
 
 def data_connect():
     try:
+        # connect = pymysql.Connect(
+        #     host=user_host,
+        #     port=user_port,
+        #     user=user_name,
+        #     passwd=user_passwd,
+        #     db=user_database,
+        # )
         connect = pymysql.Connect(
-            host=user_host,
-            port=user_port,
-            user=user_name,
-            passwd=user_passwd,
-            db=user_database,
+            host='127.0.0.1',
+            port=3306,
+            user=root,
+            passwd=root,
+            db=test_py,
         )
         cursor = connect.cursor()
         data_connect = tkinter.Tk()
@@ -148,6 +155,67 @@ def button_set(input_host,input_port,input_account,input_passwd,inut_database):
         tkinter.messagebox.showinfo('提示', '连接成功！')
     except Exception as e:
         tkinter.messagebox.showinfo('提示', '请尝试重新设置')
+
+
+def data_connect_insert():
+    try:
+        connect = pymysql.Connect(
+            host=user_host,
+            port=user_port,
+            user=user_name,
+            passwd=user_passwd,
+            db=user_database,
+            charset='utf8')
+        cursor = connect.cursor()
+        data_connect_insert = tkinter.Tk()  # 定义一个窗体
+        data_connect_insert.title('insert操作界面')  # 定义窗体标题 
+        data_connect_insert.geometry('250x150+50+10')  # 设置窗体的大小250x120像素和初始位置（50，10）
+
+        input_label_table = Label(data_connect_insert, text="请输入表名")
+        input_label_table.grid(row=0, column=0)
+        input_label_id = Label(data_connect_insert, text="请输入新用户ID")
+        input_label_id.grid(row=1, column=0)
+        input_label_name = Label(data_connect_insert, text="请输入新用户姓名")
+        input_label_name.grid(row=2, column=0)
+        input_label_account = Label(data_connect_insert, text="请输入新用户账号")
+        input_label_account.grid(row=3, column=0)
+        input_label_saving = Label(data_connect_insert, text="请输入存款")
+        input_label_saving.grid(row=4, column=0)
+
+        input_table = Entry(data_connect_insert, width=15)
+        input_table.grid(row=0, column=1)
+        input_id = Entry(data_connect_insert, width=15)
+        input_id.grid(row=1, column=1)
+        input_name = Entry(data_connect_insert, width=15)
+        input_name.grid(row=2, column=1)
+        input_account = Entry(data_connect_insert, width=15)
+        input_account.grid(row=3, column=1)
+        input_saving = Entry(data_connect_insert, width=15)
+        input_saving.grid(row=4, column=1)
+        btn2 = tkinter.Button(data_connect_insert, text='执行insert语句操作', command=lambda: process(
+            target=button_insert(input_table, input_id, input_name, input_account, input_saving, cursor,
+                                 connect)).start())
+        btn2.grid(row=5, column=1)
+        data_connect_insert.mainloop()
+    except BaseException:
+        messagebox("提示", "连接地址异常")
+        print("连接地址异常")
+
+def button_insert(input_table_name,input_id,input_name,
+                  input_account,input_saving,cursor,connect):
+    try:
+        table_name=input_table_name.get()
+        id=int(input_id.get())
+        name=input_name.get()
+        account=input_account.get()
+        saving=float(input_saving.get())
+        data=(table_name, id, name, account, saving)
+        sql = "INSERT INTO %s (id, name, account, saving) VALUES ('%d', '%s', '%s', %.2f )"
+        cursor.execute(sql % data)
+        connect.commit()
+        tkinter.messagebox.showinfo("提示", "数据插入成功")
+    except Exception as e:
+        tkinter.messagebox.showinfo('提示', '请尝试重新插入数据')
 
 # 更新数据库连接参数OK
 def data_show():

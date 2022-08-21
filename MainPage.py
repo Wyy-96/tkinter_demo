@@ -23,7 +23,7 @@ class MainPage(object):
         self.calculator = Calculator(self.root) # 预注册选择界面
         self.imageScaler = ImageScaler(self.root) # 预注册选择界面
         self.pencilSketch = PencilSketch(self.root) # 预注册选择界面
-        self.TicTacToe =  TicTacToe(self.root).pack()
+        self.TicTacToe =  TicTacToe(self.root)
         self.chouJiang = ChouJiang(self.root) # 预注册选择界面
         self.kmeans = Kmeans(self.root)
 
@@ -51,6 +51,9 @@ class MainPage(object):
         daMenu.add_command(label='MySQL连接参数设置', command=SQLDeal.data_show)
         daMenu.add_command(label='MySQL连接参数显示', command=SQLDeal.data_show_get)
         daMenu.add_command(label='连接数据库', command=SQLDeal.data_connect)
+        daMenu.add_command(label='INSERT', command=SQLDeal.data_connect_insert)
+
+
 
         mlMenu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label='机器学习', menu=mlMenu)
